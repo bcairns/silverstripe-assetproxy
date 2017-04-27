@@ -18,7 +18,7 @@ define('ASSETPROXY_HOST','http://my-source-server.com');
 
 ## Known Issues
 
-* If the source image is changed (while retaining an identical filename) the new version will not replace the old one.
+* If the source image is changed (while retaining an identical filename) the new version will not replace the old one.  Suggested workaround is to just delete your local version of the file and let the latest be re-fetched.
 
 
 ## Acknowledgements
