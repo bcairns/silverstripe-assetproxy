@@ -1,0 +1,6 @@
+---
+name: assetproxy
+---
+Controller:
+  extensions:
+    - AssetProxy
