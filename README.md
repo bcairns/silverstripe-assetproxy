@@ -10,7 +10,7 @@ However, this can be solved by using this module in conjunction with [Image Prof
 
 ## Usage
 
-After installing the module, define a `ASSETPROXY_HOST` constant in either _config.php or _ss_environment.php:
+After installing the module, define an `ASSETPROXY_HOST` constant in either _config.php or _ss_environment.php:
 
 ```
 define('ASSETPROXY_HOST','http://my-source-server.com');
