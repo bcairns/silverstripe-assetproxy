@@ -1,0 +1,24 @@
+{
+	"name": "bcairns/silverstripe-assetproxy",
+	"description": "Attempts to fetch missing asset files from a remote host, by intercepting 404 errors.",
+	"type": "silverstripe-module",
+	"homepage": "http://github.com/bcairns/silverstripe-assetproxy",
+	"keywords": ["silverstripe", "staging", "assets", "remote", "download"],
+	"license": "BSD-3-Clause",
+	"authors": [
+		{
+			"name": "Brian Cairns",
+			"email": "bcairns@gmail.com"
+		}
+	],
+	"support": {
+		"issues": "http://github.com/bcairns/silverstripe-assetproxy/issues"
+	},
+	"require": {
+		"silverstripe/framework": ">=3.1.0"
+	},
+	"extra": {
+		"installer-name": "assetproxy"
+	},
+	"target-dir": "assetproxy"
+}
