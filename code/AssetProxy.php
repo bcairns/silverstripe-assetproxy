@@ -11,6 +11,13 @@ class AssetProxy extends Extension
 		return defined( 'ASSETPROXY_HOST' ) ? ASSETPROXY_HOST : false;
 	}
 
+	public static function ensureDirectoryExists($rootPath){
+		$dirPath = dirname( Director::baseFolder() . $rootPath );
+		if( !file_exists($dirPath) ){
+			Filesystem::makeFolder($dirPath);
+		}
+	}
+
 	public function onBeforeHTTPError404($request){
 		$url = $request->getURL();
 		if( substr($url,0,7) == 'assets/' && ( $host = self::getHost() ) ){
@@ -23,6 +30,26 @@ class AssetProxy extends Extension
 				exit;
 			}
 		}
+	}
+
+	public function onAfterInit(){
+
+		$owner = $this->owner;
+		if( $owner->hasMethod('inheritedDatabaseFields') ){
+			$fields = $owner->inheritedDatabaseFields();
+			foreach( $fields as $field => $type ){
+				if( $type === 'ForeignKey' && $field !== 'ParentID' ){
+					$obj = $owner->obj(substr($field,0,-2));
+					if( $obj instanceof File ){
+						self::ensureDirectoryExists('/'.$obj->Filename);
+
+						// todo: aggressive mode, fetch image immediately
+					}
+
+				}
+			}
+		}
+
 	}
 
 }
