@@ -4,3 +4,6 @@ name: assetproxy
 Controller:
   extensions:
     - AssetProxy
+ShortcodeParser:
+  extensions:
+    - AssetProxy_Parser

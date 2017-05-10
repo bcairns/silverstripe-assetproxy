@@ -7,7 +7,7 @@
 class AssetProxy extends Extension
 {
 
-	public function getHost(){
+	public static function getHost(){
 		return defined( 'ASSETPROXY_HOST' ) ? ASSETPROXY_HOST : false;
 	}
 
