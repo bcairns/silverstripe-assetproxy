@@ -32,20 +32,55 @@ class AssetProxy extends Extension
 		}
 	}
 
+	public function isAggressiveMode($file){
+		return defined('ASSETPROXY_AGGRESSIVE') ? ASSETPROXY_AGGRESSIVE : true;
+	}
+
 	public function onAfterInit(){
 
-		$owner = $this->owner;
-		if( $owner->hasMethod('inheritedDatabaseFields') ){
-			$fields = $owner->inheritedDatabaseFields();
-			foreach( $fields as $field => $type ){
-				if( $type === 'ForeignKey' && $field !== 'ParentID' ){
-					$obj = $owner->obj(substr($field,0,-2));
-					if( $obj instanceof File ){
-						self::ensureDirectoryExists('/'.$obj->Filename);
+		if( self::getHost() && $this->owner instanceof ContentController ){
+			$this->checkObject( $this->owner->data() );
+		}
 
-						// todo: aggressive mode, fetch image immediately
+	}
+
+	/**
+	 * Check given DataObject for File fields
+	 * Recursively checks $has_many relationships
+	 * @param $object
+	 */
+	protected function checkObject($object){
+
+		if( $object->hasMethod('inheritedDatabaseFields') ){
+
+			$fields = $object->inheritedDatabaseFields();
+
+			foreach( $fields as $fieldname => $type ){
+
+				if( $type === 'ForeignKey' && $fieldname !== 'ParentID' ){
+					$field = $object->obj(substr($fieldname,0,-2));
+					if( $field instanceof File && ($path = $field->getFullPath()) && !file_exists($path) ){
+
+						self::ensureDirectoryExists('/'.$field->Filename);
+
+						// aggressive mode, fetch image immediately
+						if( $this->isAggressiveMode($field) ){
+							$source = self::getHost() . '/' . $field->getFilename();
+							copy( $source, $path );
+						}
+
 					}
+				}
 
+			}
+
+		}
+
+		$has_many = $object->config()->get('has_many');
+		if( is_array( $has_many ) ){
+			foreach( $has_many as $field => $type ){
+				foreach( $object->$field() as $child ){
+					$this->checkObject($child);
 				}
 			}
 		}
