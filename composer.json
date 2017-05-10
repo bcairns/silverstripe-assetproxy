@@ -1,6 +1,6 @@
 {
 	"name": "bcairns/silverstripe-assetproxy",
-	"description": "Attempts to fetch missing asset files from a remote host, by intercepting 404 errors.",
+	"description": "Automatically fetches missing /assets/ files on-the-fly from a remote host, alleviating the need to sync files from production or staging servers.",
 	"type": "silverstripe-module",
 	"homepage": "http://github.com/bcairns/silverstripe-assetproxy",
 	"keywords": ["silverstripe", "staging", "assets", "remote", "download"],
