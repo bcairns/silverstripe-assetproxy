@@ -36,6 +36,7 @@ class AssetProxy extends Extension
 		return defined('ASSETPROXY_AGGRESSIVE') ? ASSETPROXY_AGGRESSIVE : true;
 	}
 
+	/*
 	public function onAfterInit(){
 
 		if( self::getHost() && $this->owner instanceof ContentController ){
@@ -43,6 +44,7 @@ class AssetProxy extends Extension
 		}
 
 	}
+	*/
 
 	/**
 	 * Check given DataObject for File fields
