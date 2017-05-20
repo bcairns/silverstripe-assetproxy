@@ -17,7 +17,7 @@ class AssetProxy_Parser extends Extension
 				$matches
 			);
 			foreach( $matches[2] as $match ){
-				AssetProxy::ensureDirectoryExists('/'.$match);
+				AssetProxy::ensureDirectoryExists($match);
 			}
 		}
 
