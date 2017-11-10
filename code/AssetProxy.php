@@ -19,7 +19,6 @@ class AssetProxy extends Extension
 	}
 
 	public static function copyFromSource($path){
-		Debug::log(__METHOD__."[".__LINE__."]");
 		return self::getHost() && copy( self::getHost() . '/' . $path, '../' . $path );
 	}
 
