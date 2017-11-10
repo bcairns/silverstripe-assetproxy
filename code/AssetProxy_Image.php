@@ -44,6 +44,12 @@ class AssetProxy_Image extends Image
 		}
 	}
 
+	public function getFilename() {
+		$filename = parent::getFilename();
+		AssetProxy::ensureDirectoryExists($filename);
+		return $filename;
+	}
+
 	/**
 	 * Return an image object representing the image in the given format.
 	 * This image will be generated using generateFormattedImage().
