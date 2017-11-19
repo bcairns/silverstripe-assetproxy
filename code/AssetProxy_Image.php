@@ -24,6 +24,13 @@ class AssetProxy_Image extends Image
 	}
 
 	/**
+	 * @return true if this file exists in the local filesystem
+	 */
+	public function fileExists(){
+		return file_exists($this->getFullPath());
+	}
+
+	/**
 	 * Return an XHTML img tag for this Image
 	 *
 	 * @return string
@@ -76,6 +83,25 @@ class AssetProxy_Image extends Image
 
 			$cached = new Image_Cached($cacheFile, false, $this);
 			return $cached;
+		}
+	}
+
+	/**
+	 * Get the dimensions of this Image.
+	 * @param string $dim If this is equal to "string", return the dimensions in string form,
+	 * if it is 0 return the height, if it is 1 return the width.
+	 * @return string|int|null
+	 */
+	public function getDimensions($dim = "string") {
+		if($this->getField('Filename')) {
+
+			$imagefile = $this->getFullPath();
+			if( $this->fileExists() ) {
+				$size = getimagesize($imagefile);
+				return ($dim === "string") ? "$size[0]x$size[1]" : $size[$dim];
+			} else {
+				return ($dim === "string") ? "file '$imagefile' not found" : null;
+			}
 		}
 	}
 
